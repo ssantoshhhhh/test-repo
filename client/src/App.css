@@ -3,11 +3,11 @@
 }
 
 body {
-  font-family: 'Arial', sans-serif;
-  background: linear-gradient(135deg, #74ebd5, #acb6e5);
+  font-family: 'Courier New', Courier, monospace; /* Futuristic font */
+  background: radial-gradient(circle, #0a0a0a, #1c1c1c);
   margin: 0;
   padding: 20px;
-  color: #333;
+  color: #e5e5e5; /* Light text color for contrast */
 }
 
 .game-container {
@@ -15,16 +15,16 @@ body {
   margin: 0 auto;
   text-align: center;
   padding: 20px;
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(50, 50, 50, 0.9); /* Dark background for container */
   border-radius: 15px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 10px 50px rgba(0, 255, 255, 0.5); /* Glowing shadow effect */
 }
 
 .title {
   margin-bottom: 20px;
   font-size: 2.5rem;
-  color: #333;
-  text-shadow: 1px 1px 3px rgba(255, 255, 255, 0.5);
+  color: #00ffcc; /* Sci-fi teal */
+  text-shadow: 0 0 15px #00ffcc; /* Glowing effect */
 }
 
 .board {
@@ -38,20 +38,32 @@ body {
   width: 100px;
   height: 100px;
   font-size: 4rem;
-  background: linear-gradient(145deg, #ffffff, #e6e6e6);
-  border: 2px solid #ccc;
+  background: linear-gradient(145deg, #2a2a2a, #4d4d4d); /* Darker gradient */
+  border: 2px solid transparent; /* Initial border, glowing on hover */
   border-radius: 10px;
   cursor: pointer;
-  transition: background-color 0.3s, transform 0.2s, box-shadow 0.2s;
   position: relative;
   overflow: hidden;
-  overflow: hidden;
+  transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+  animation: pop-in 0.3s ease-in forwards;
+}
+
+@keyframes pop-in {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 .square:hover {
-  background-color: rgba(255, 255, 255, 0.8);
-  transform: scale(1.1);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  background: rgba(50, 50, 50, 0.8);
+  transform: translateY(-5px);
+  box-shadow: 0 0 15px #00ffcc; /* Glow on hover */
+  border: 2px solid #00ffcc; /* Glowing border */
 }
 
 .square:focus {
@@ -59,22 +71,19 @@ body {
 }
 
 .square.X {
-  color: #f03c20;
-  transition: color 0.2s;
+  color: #ff3d00; /* Sci-fi red */
 }
 
 .square.O {
-  color: #20f0a7;
-  transition: color 0.2s;
+  color: #00ffcc; /* Sci-fi teal */
 }
 
 .square.winner {
-  background: rgba(255, 206, 0, 0.8);
-  transform: scale(1.1);
-  animation: pulse 1.5s infinite;
+  background: rgba(0, 255, 204, 0.8); /* Bright green overlay on win */
+  animation: winner-pulse 1s infinite;
 }
 
-@keyframes pulse {
+@keyframes winner-pulse {
   0%, 100% {
     transform: scale(1.1);
   }
@@ -86,24 +95,25 @@ body {
 .result {
   margin: 20px 0;
   font-size: 1.5rem;
-  color: #333;
+  color: #00ffcc; /* Bright teal for result text */
   transition: opacity 0.5s;
+  animation: fade-in 0.5s ease-in-out;
 }
 
 .restart {
   padding: 15px 30px;
   font-size: 1.2rem;
-  background: linear-gradient(145deg, #28a745, #218838);
-  color: white;
+  background: linear-gradient(145deg, #00ffcc, #005f5f); /* Sci-fi button colors */
+  color: black;
   border: none;
   border-radius: 10px;
   cursor: pointer;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 5px 15px rgba(0, 255, 255, 0.5);
   transition: background 0.3s, transform 0.2s;
 }
 
 .restart:hover {
-  background: linear-gradient(145deg, #218838, #28a745);
+  background: linear-gradient(145deg, #005f5f, #00ffcc); /* Reverse gradient on hover */
   transform: translateY(-2px);
 }
 
@@ -121,5 +131,43 @@ body {
 }
 
 .result {
-  animation: fade-in 0.5s ease-in-out;
+  margin: 20px 0;
+  font-size: 1.5rem;
+  color: #00ffcc; /* Bright teal for turn text */
+  transition: opacity 0.5s;
+  animation: fade-in 0.5s ease-in-out; /* Fade-in animation for result */
+  text-shadow: 0 0 10px #00ffcc; /* Add glow effect to turn text */
 }
+
+
+/* Add this CSS at the end of your existing styles */
+
+.square.winner {
+  background: rgba(255, 0, 0, 0.5); /* Change background for winning squares */
+  color: #000; /* Change text color to black to improve contrast */
+  text-shadow: none; /* Remove glow effect for clarity */
+  animation: none; /* Remove hover animation for winning squares */
+}
+
+/* Optional: add a line-through effect as if it's crossed out */
+.square.winner::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 2px; /* Thickness of the line */
+  background-color: #ff0000; /* Color of the line */
+  transform: translateY(-50%) rotate(45deg); /* Adjust position */
+  z-index: -1; /* Put it behind the text */
+}
+
+/* Styles for different positions */
+.square.winner:nth-child(1)::after { transform: translateY(-50%) rotate(45deg); }
+.square.winner:nth-child(2)::after { transform: translateY(-50%) rotate(45deg); }
+.square.winner:nth-child(3)::after { transform: translateY(-50%) rotate(45deg); }
+.square.winner:nth-child(4)::after { transform: translateY(-50%) rotate(45deg); }
+.square.winner:nth-child(5)::after { transform: translateY(-50%) rotate(45deg); }
+.square.winner:nth-child(6)::after { transform: translateY(-50%) rotate(45deg); }
+.square.winner:nth-child(7)::after { transform: translateY(-50%) rotate(45deg); }
+.square.winner:nth-child(8)::after { transform: translateY(-50%) rotate(45deg); }
